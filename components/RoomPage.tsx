@@ -3,11 +3,64 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { io, Socket } from 'socket.io-client';
 import { v4 as uuidv4 } from 'uuid';
-import { Users, Copy, Check, LogOut, ChevronRight } from 'lucide-react';
+import { Users, Copy, Check, LogOut, ChevronRight, Languages, ChevronDown, ChevronUp } from 'lucide-react';
 import { UserInfo, RoomMessageData } from '@/types/socket';
 import JoinModal from './JoinModal';
 import ChatInput from './ChatInput';
 import LearnPanel from './LearnPanel';
+
+// ── English Meaning Panel (inline) ───────────────────────────────────────────
+
+function EnglishMeaningPanel({ originalText, senderLang }: { originalText: string; senderLang: string }) {
+  const [open, setOpen] = useState(false);
+  const [translation, setTranslation] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [fetched, setFetched] = useState(false);
+
+  // If sender typed in English, originalText IS the English meaning — no API call needed
+  const isAlreadyEnglish = senderLang === 'en';
+
+  async function handleOpen() {
+    if (open) { setOpen(false); return; }
+    setOpen(true);
+    if (fetched || isAlreadyEnglish) return;
+    setLoading(true);
+    try {
+      const res = await fetch('/api/translate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: originalText, sourceLang: senderLang }),
+      });
+      const data = await res.json();
+      setTranslation(data.translation ?? originalText);
+    } catch {
+      setTranslation(originalText);
+    } finally {
+      setLoading(false);
+      setFetched(true);
+    }
+  }
+
+  const displayText = isAlreadyEnglish ? originalText : translation;
+
+  return (
+    <div className="mt-1">
+      <button
+        onClick={handleOpen}
+        className="flex items-center gap-1 text-xs text-gray-400 hover:text-emerald-600 transition"
+      >
+        <Languages size={11} />
+        <span>English meaning</span>
+        {open ? <ChevronUp size={11} /> : <ChevronDown size={11} />}
+      </button>
+      {open && (
+        <div className="mt-1.5 max-w-[75%] bg-emerald-50 border border-emerald-200 rounded-xl px-3 py-2 text-xs text-emerald-900 leading-relaxed">
+          {loading ? 'Translating…' : displayText}
+        </div>
+      )}
+    </div>
+  );
+}
 
 // ── Types ────────────────────────────────────────────────────────────────────
 
@@ -240,13 +293,22 @@ export default function RoomPage({ initialRoomId }: Props) {
                     {msg.text}
                   </div>
                   <span className="text-xs text-gray-400 mt-1">{formatTime(msg.timestamp)}</span>
-                  {/* Learn button — only on received messages, not own or system */}
+                  {/* Learn + English meaning — only on received messages */}
                   {!msg.isOwn && (
-                    <LearnPanel
-                      originalText={msg.originalText}
-                      senderLang={msg.senderLang}
-                      senderName={msg.senderName}
-                    />
+                    <>
+                      <LearnPanel
+                        originalText={msg.originalText}
+                        senderLang={msg.senderLang}
+                        senderName={msg.senderName}
+                      />
+                      {/* Show English meaning only when receiver's language is not English */}
+                      {myLanguage !== 'en' && (
+                        <EnglishMeaningPanel
+                          originalText={msg.originalText}
+                          senderLang={msg.senderLang}
+                        />
+                      )}
+                    </>
                   )}
                 </div>
               );

@@ -4,8 +4,8 @@
 # Then: fly secrets set GROQ_API_KEY=your_key_here
 # Then: fly deploy
 
-app = 'multilingual-chat'
-primary_region = 'sin'
+app = 'multilingual-chat-v2'
+primary_region = 'iad'
 
 [build]
 

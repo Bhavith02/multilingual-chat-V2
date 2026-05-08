@@ -1,9 +1,4 @@
 # fly.toml — Fly.io deployment config
-# Change the app name below to something unique (e.g. "multilingual-chat-yourname")
-# Run: fly launch --no-deploy  (to register the app name first)
-# Then: fly secrets set GROQ_API_KEY=your_key_here
-# Then: fly deploy
-
 app = 'multilingual-chat-v2'
 primary_region = 'iad'
 

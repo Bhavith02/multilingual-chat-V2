@@ -1,0 +1,24 @@
+# fly.toml — Fly.io deployment config
+# Change the app name below to something unique (e.g. "multilingual-chat-yourname")
+# Run: fly launch --no-deploy  (to register the app name first)
+# Then: fly secrets set GROQ_API_KEY=your_key_here
+# Then: fly deploy
+
+app = 'multilingual-chat'
+primary_region = 'sin'
+
+[build]
+
+[http_service]
+  internal_port = 3000
+  force_https = true
+  # Keep 1 machine always running — no cold starts, no sleep (critical for Socket.io)
+  auto_stop_machines = false
+  auto_start_machines = true
+  min_machines_running = 1
+
+[[vm]]
+  # Free tier: shared CPU, 256MB RAM — fits well within Fly.io free allowance
+  cpu_kind = 'shared'
+  cpus = 1
+  memory = '256mb'

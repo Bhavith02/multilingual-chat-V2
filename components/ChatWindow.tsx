@@ -24,7 +24,17 @@ const LANGUAGES = [
   { code: 'ta', name: 'Tamil',      flag: '🇮🇳' },
   { code: 'te', name: 'Telugu',     flag: '🇮🇳' },
   { code: 'kn', name: 'Kannada',    flag: '🇮🇳' },
+  { code: 'ml', name: 'Malayalam',  flag: '🇮🇳' },
   { code: 'bn', name: 'Bengali',    flag: '🇧🇩' },
+  { code: 'mr', name: 'Marathi',    flag: '🇮🇳' },
+  { code: 'gu', name: 'Gujarati',   flag: '🇮🇳' },
+  { code: 'pa', name: 'Punjabi',    flag: '🇮🇳' },
+  { code: 'ur', name: 'Urdu',       flag: '🇵🇰' },
+  { code: 'tr', name: 'Turkish',    flag: '🇹🇷' },
+  { code: 'nl', name: 'Dutch',      flag: '🇳🇱' },
+  { code: 'sv', name: 'Swedish',    flag: '🇸🇪' },
+  { code: 'vi', name: 'Vietnamese', flag: '🇻🇳' },
+  { code: 'pl', name: 'Polish',     flag: '🇵🇱' },
 ];
 
 // ── Language picker screen ────────────────────────────────────────────────────

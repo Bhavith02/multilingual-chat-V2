@@ -22,6 +22,15 @@ const LANGUAGES = [
   { code: 'kn', name: 'Kannada' },
   { code: 'ml', name: 'Malayalam' },
   { code: 'bn', name: 'Bengali' },
+  { code: 'mr', name: 'Marathi' },
+  { code: 'gu', name: 'Gujarati' },
+  { code: 'pa', name: 'Punjabi' },
+  { code: 'ur', name: 'Urdu' },
+  { code: 'tr', name: 'Turkish' },
+  { code: 'nl', name: 'Dutch' },
+  { code: 'sv', name: 'Swedish' },
+  { code: 'vi', name: 'Vietnamese' },
+  { code: 'pl', name: 'Polish' },
 ];
 
 interface Props {

@@ -141,9 +141,13 @@ types/
 
 ## Supported Languages
 
-**AI Chatbot (16):** English, Hindi, Spanish, French, German, Japanese, Korean, Chinese, Arabic, Portuguese, Russian, Italian, Tamil, Telugu, Kannada, Bengali
+Both modes support 26 languages:
 
-**Group Chat (17):** same as above + Malayalam
+**Indian:** Hindi, Tamil, Telugu, Kannada, Malayalam, Bengali, Marathi, Gujarati, Punjabi, Urdu
+
+**European:** English, Spanish, French, German, Portuguese, Russian, Italian, Dutch, Swedish, Polish, Turkish
+
+**Asian:** Japanese, Korean, Chinese, Arabic, Vietnamese
 
 ---
 

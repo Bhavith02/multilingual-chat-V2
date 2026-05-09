@@ -1,14 +1,20 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Bot, Users, ArrowRight } from 'lucide-react';
+import { QRCodeSVG } from 'qrcode.react';
 
 export default function LandingPage() {
   const [joinCode, setJoinCode] = useState('');
   const [showJoinInput, setShowJoinInput] = useState(false);
   const [joinError, setJoinError] = useState('');
+  const [siteUrl, setSiteUrl] = useState('');
   const router = useRouter();
+
+  useEffect(() => {
+    setSiteUrl(window.location.origin);
+  }, []);
 
   function handleJoin() {
     const code = joinCode.trim().toUpperCase();
@@ -108,6 +114,24 @@ export default function LandingPage() {
       <p className="mt-10 text-xs text-gray-400 text-center">
         Rooms are temporary — automatically deleted when everyone leaves
       </p>
+
+      {/* QR Code */}
+      {siteUrl && (
+        <div className="mt-10 flex flex-col items-center gap-3">
+          <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
+            <QRCodeSVG
+              value={siteUrl}
+              size={120}
+              bgColor="#ffffff"
+              fgColor="#1e293b"
+              level="M"
+            />
+          </div>
+          <p className="text-xs text-gray-400 text-center">
+            Scan to open on your phone
+          </p>
+        </div>
+      )}
     </div>
   );
 }

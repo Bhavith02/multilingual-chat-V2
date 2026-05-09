@@ -13,7 +13,7 @@ export default function LandingPage() {
   const router = useRouter();
 
   useEffect(() => {
-    setSiteUrl(window.location.origin);
+    setSiteUrl('https://multilingual-chat-v2.onrender.com/');
   }, []);
 
   function handleJoin() {
